@@ -13,11 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ufba.ffd.utilities;
+package com.ufba.ffd.coveringmatrix;
 
 import com.ufba.ffd.entities.Device;
 import com.ufba.ffd.entities.Gateway;
 import com.ufba.ffd.entities.Topology;
+import com.ufba.ffd.utilities.Coordinate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -88,6 +89,37 @@ public class CoveringMatrix {
 
     public void setDevicesUncovered(List<Device> devicesUncovered) {
         this.devicesUncovered = devicesUncovered;
+    }
+    
+    public List<Device> minCCChvatal(List<Device> E, Map<Gateway, List<Device>> coveringMatrix){
+        
+        
+        
+        
+        return null;
+        
+        
+        
+        
+    }
+    
+    public void printCoveringMatrixAsMatrix(){
+        List<Device> listDevices = topology.getListDevices();
+        List<Gateway> listGateways = topology.getListGateways();
+        
+        System.out.format("%19s", "");
+        for(Gateway gat : listGateways){
+            System.out.format("%19s", gat.getName());
+        }
+        System.out.println();
+        
+        for(Device dev : listDevices){
+            System.out.format("%19s", dev.getName());
+            for(Gateway gat : listGateways){
+                System.out.format("%19d", coveringMatrix.get(gat).contains(dev) ? 1 : 0);
+            }
+            System.out.println();
+        }
     }
     
     @Override

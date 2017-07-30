@@ -20,7 +20,7 @@ import com.google.gson.GsonBuilder;
 import com.ufba.ffd.entities.Topology;
 import com.ufba.ffd.utilities.Coordinate;
 import com.ufba.ffd.utilities.CoordinateDeserializer;
-import com.ufba.ffd.utilities.CoveringMatrix;
+import com.ufba.ffd.coveringmatrix.CoveringMatrix;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -49,5 +49,6 @@ public class Main {
         System.out.println("Creating covering matrix");
         CoveringMatrix coveringMatrix = new CoveringMatrix(topology);
         System.out.println(coveringMatrix);
+        coveringMatrix.printCoveringMatrixAsMatrix();
     }
 }

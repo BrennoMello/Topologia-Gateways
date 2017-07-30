@@ -35,8 +35,7 @@ public class CoordinateDeserializer implements JsonDeserializer<Coordinate> {
         Coordinate ans = new Coordinate();
         JsonObject obj = json.getAsJsonObject();
 
-        ans.setLatitude(obj.get("latitude").getAsDouble());
-        ans.setLongitude(obj.get("longitude").getAsDouble());
+        ans.setLatitudeLongitude(obj.get("latitude").getAsDouble(), obj.get("longitude").getAsDouble());
 
         return ans;
     }

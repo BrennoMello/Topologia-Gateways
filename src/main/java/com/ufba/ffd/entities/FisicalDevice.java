@@ -41,6 +41,14 @@ public class FisicalDevice {
     public void setCoordinate(Coordinate coordinate) {
         this.coordinates = coordinate;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
     
     @Override
     public String toString(){

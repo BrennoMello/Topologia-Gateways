@@ -20,6 +20,7 @@ import com.google.gson.GsonBuilder;
 import com.ufba.ffd.entities.Topology;
 import com.ufba.ffd.utilities.Coordinate;
 import com.ufba.ffd.utilities.CoordinateDeserializer;
+import com.ufba.ffd.utilities.CoveringMatrix;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -35,13 +36,18 @@ public class Main {
     public static void main(String[] args) throws FileNotFoundException, IOException {
         InputStream arquivo = Main.class.getResourceAsStream("/br/ufba/ffd/config/basic_topology.json");
         
+        System.out.println("Loading json file");
         GsonBuilder gb = new GsonBuilder();
         gb.registerTypeAdapter(Coordinate.class, new CoordinateDeserializer());
         Gson gson = gb.create();
         
+        System.out.println("Parsing json file");
         BufferedReader buff_arquivo = new BufferedReader(new InputStreamReader(arquivo));
-        Topology topolgy = gson.fromJson(buff_arquivo, Topology.class);
+        Topology topology = gson.fromJson(buff_arquivo, Topology.class);
+        System.out.println(topology);
         
-        System.out.print(topolgy);
+        System.out.println("Creating covering matrix");
+        CoveringMatrix coveringMatrix = new CoveringMatrix(topology);
+        System.out.println(coveringMatrix);
     }
 }

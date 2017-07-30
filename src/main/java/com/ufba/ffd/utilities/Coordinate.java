@@ -15,19 +15,21 @@
  */
 package com.ufba.ffd.utilities;
 
-import java.awt.geom.Point2D;
-
 /**
  *
  * @author Brenno Mello <brennodemello.bm at gmail.com>
  */
 public class Coordinate {
     
-    private final Point2D cord;
+    public static final double EARTH_RADIUS = 6378.137;
+    
+    private double latitude;
+    private double longitude;
     
     /* Create a coordinate */
     public Coordinate(double latitude, double longitude){
-        cord = new Point2D.Double(latitude, longitude);
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
     
     public Coordinate(){
@@ -35,31 +37,30 @@ public class Coordinate {
     }
     
     public double getLatitude(){
-        return cord.getX();
+        return latitude;
     }
     
     public double getLongitude(){
-        return cord.getY();
+        return longitude;
     }
     
     public void setLatitude(double latitude){
-        cord.setLocation(latitude, cord.getY());
+        this.latitude = latitude;
     }
     
     public void setLongitude(double longitude){
-        cord.setLocation(cord.getX(), longitude);
+        this.longitude = longitude;
     }
  
     public void setLatitudeLongitude(double latitude, double longitude){
-        cord.setLocation(latitude, longitude);
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
-    
-    public Point2D getPoint(){
-        return cord;
-    }
-    
-    public boolean containsPoint(Point2D point){
-        return (cord.distance(point) <= WifiConstraints.MAXIMUM_RANGE);
+
+    public boolean containsCoordinate(Coordinate deviceCoordinate) {
+        double haversineDistanceKm = Haversine.distance(latitude, longitude, deviceCoordinate.getLatitude(), deviceCoordinate.getLongitude());
+        double haversineDistanceM = haversineDistanceKm * 1000.0;
+        return haversineDistanceM <= WifiConstraints.MAXIMUM_RANGE;
     }
     
 }

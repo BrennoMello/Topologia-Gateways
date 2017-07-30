@@ -24,18 +24,28 @@ import java.util.List;
  */
 public class Topology {
     
+    private String topologyName;
     private List<Gateway> listGateways;
     private List<Device> listDevices;
     
-    public Topology(List<Gateway> listGateways, List<Device> listDevices){
+    public Topology(String topologyName, List<Gateway> listGateways, List<Device> listDevices){
+        this.topologyName = topologyName;
         this.listGateways = listGateways;
         this.listDevices = listDevices;
     }
     
     public Topology(){
-        this(new ArrayList<>(), new ArrayList<>());
+        this("", new ArrayList<>(), new ArrayList<>());
     }
 
+    public String getTopologyName() {
+        return topologyName;
+    }
+
+    public void setTopologyName(String topologyName) {
+        this.topologyName = topologyName;
+    }
+    
     public List<Gateway> getListGateways() {
         return listGateways;
     }

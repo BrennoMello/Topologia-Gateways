@@ -42,13 +42,14 @@ public class Main {
         Gson gson = gb.create();
         
         System.out.println("Parsing json file");
-        BufferedReader buff_arquivo = new BufferedReader(new InputStreamReader(arquivo));
-        Topology topology = gson.fromJson(buff_arquivo, Topology.class);
+        BufferedReader buffArquivo = new BufferedReader(new InputStreamReader(arquivo));
+        Topology topology = gson.fromJson(buffArquivo, Topology.class);
         System.out.println(topology);
         
         System.out.println("Creating covering matrix");
         CoveringMatrix coveringMatrix = new CoveringMatrix(topology);
         System.out.println(coveringMatrix);
         coveringMatrix.printCoveringMatrixAsMatrix();
+        coveringMatrix.grasp();
     }
 }

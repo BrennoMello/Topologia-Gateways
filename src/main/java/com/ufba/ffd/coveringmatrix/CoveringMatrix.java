@@ -33,14 +33,16 @@ public class CoveringMatrix {
     private Map<Gateway, List<Device>> coveringMatrix;
     private List<Device> devicesUncovered;
     private Topology topology;
+    List<Device> listDevices;
+    List<Gateway> listGateways;
     
     public CoveringMatrix(Topology topology){
         this.topology = topology;
         coveringMatrix = new HashMap<>();
         devicesUncovered = new ArrayList<>();
         
-        List<Device> listDevices = topology.getListDevices();
-        List<Gateway> listGateways = topology.getListGateways();
+        listDevices = topology.getListDevices();
+        listGateways = topology.getListGateways();
         Map<Device, Boolean> devicesCovered = new HashMap<>();
         
         for(Device device : listDevices){
@@ -102,6 +104,39 @@ public class CoveringMatrix {
         
         
     }
+    
+    public List<Gateway> greedyAlgorithm(){
+        List<Device> solutionDevice = new ArrayList<>();
+        List<Gateway> solutionGateway = new ArrayList<>();
+        
+        while(!listDevices.retainAll(solutionDevice)){
+           
+            for (Gateway gateway : listGateways) {
+                List<Device> listDevice = coveringMatrix.get(gateway);
+                
+            }
+            
+            
+        }
+        return solutionGateway;
+    }
+    
+    public void grasp(){
+        
+        
+        
+        
+        for (Gateway gateway : topology.getListGateways()) {
+            List<Device> listDevice = coveringMatrix.get(gateway);
+            System.out.println(gateway);
+            for (Device device : listDevice) {
+                System.out.println(device);
+            }
+        }
+ 
+        
+    }
+    
     
     public void printCoveringMatrixAsMatrix(){
         List<Device> listDevices = topology.getListDevices();

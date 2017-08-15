@@ -67,6 +67,7 @@ public class SetCoverMax2Elem{
         List<Set<Integer>> listOfSets = new ArrayList<Set<Integer>>();
         for (Integer[] array : arrayOfSets)
             listOfSets.add(new LinkedHashSet<Integer>(Arrays.asList(array)));
+        
         final Set<Integer> solutionSet = new LinkedHashSet<Integer>(Arrays.asList(solution));
         
         Filter<Set<Set<Integer>>> filter = new Filter<Set<Set<Integer>>>()
@@ -79,8 +80,7 @@ public class SetCoverMax2Elem{
                 return union.equals(solutionSet);
             }
         };
-        Set<Set<Integer>> firstSolution = shortestCombination(filter,
-                listOfSets);
+        Set<Set<Integer>> firstSolution = shortestCombination(filter, listOfSets);
         System.out.println("The shortest combination was " + firstSolution);
     }
 }

@@ -108,6 +108,16 @@ public class CoveringMatrix {
     public List<Gateway> greedyAlgorithm(){
         List<Device> solutionDevice = new ArrayList<>();
         List<Gateway> solutionGateway = new ArrayList<>();
+        Map<Gateway, Integer> cost;
+        
+        
+        System.out.print(coveringMatrix.size());
+        
+         for (Gateway gateway : listGateways) {
+                List<Device> listDevice = coveringMatrix.get(gateway);
+                
+         }
+        
         
         while(!listDevices.retainAll(solutionDevice)){
            

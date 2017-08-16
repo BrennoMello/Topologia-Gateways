@@ -21,11 +21,13 @@ import com.ufba.ffd.entities.Topology;
 import com.ufba.ffd.utilities.Coordinate;
 import com.ufba.ffd.utilities.CoordinateDeserializer;
 import com.ufba.ffd.coveringmatrix.CoveringMatrix;
+import com.ufba.ffd.entities.Gateway;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.List;
 
 /**
  *
@@ -50,6 +52,13 @@ public class Main {
         CoveringMatrix coveringMatrix = new CoveringMatrix(topology);
         System.out.println(coveringMatrix);
         coveringMatrix.printCoveringMatrixAsMatrix();
-        coveringMatrix.grasp();
+        
+        
+        System.out.println("Print Solution");
+        List<Gateway> listSolution = coveringMatrix.greedyAlgorithm();
+        
+        for (Gateway gateway : listSolution) {
+            System.out.print(gateway);
+        }
     }
 }

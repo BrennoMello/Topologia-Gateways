@@ -94,13 +94,7 @@
                 "longitude": -38.5086384415627
             }
         },
-        {
-            "name": "DevTempSensor03",
-            "coordinates": {
-                "latitude": -13.0018058028535,
-                "longitude": -38.5081958770752
-            }
-        },
+        
         {
             "name": "DevRainSensor01",
             "coordinates": {

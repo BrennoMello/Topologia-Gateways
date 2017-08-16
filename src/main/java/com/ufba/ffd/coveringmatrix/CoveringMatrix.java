@@ -20,9 +20,12 @@ import com.ufba.ffd.entities.Gateway;
 import com.ufba.ffd.entities.Topology;
 import com.ufba.ffd.utilities.Coordinate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  *
@@ -106,31 +109,55 @@ public class CoveringMatrix {
     }
     
     public List<Gateway> greedyAlgorithm(){
-        List<Device> solutionDevice = new ArrayList<>();
+        Set<Device> solutionDevice = new LinkedHashSet<>();
         List<Gateway> solutionGateway = new ArrayList<>();
-        Map<Gateway, Integer> cost;
         
         
-        System.out.print(coveringMatrix.size());
-        
-         for (Gateway gateway : listGateways) {
-                List<Device> listDevice = coveringMatrix.get(gateway);
-                
-         }
-        
-        
-        while(!listDevices.retainAll(solutionDevice)){
-           
-            for (Gateway gateway : listGateways) {
-                List<Device> listDevice = coveringMatrix.get(gateway);
-                
-            }
+        while(!solutionDevice.containsAll(listDevices)){
+            
+            Gateway daVez = findMinSet( coveringMatrix , solutionDevice);
+            solutionDevice.addAll(coveringMatrix.remove(daVez));
+            solutionGateway.add(daVez);
             
             
         }
         return solutionGateway;
     }
     
+    public Gateway findMinSet(Map<Gateway, List<Device>> gateways, 
+            Set<Device> solutionDevices){
+        
+        Gateway gatewayMenorCusto = null;
+        Float menorCusto = Float.MAX_VALUE;
+        
+        for(Map.Entry<Gateway, List<Device>> gateway : gateways.entrySet()){
+            int tamanhoDiferenca = getDiferenca(gateway.getValue(), solutionDevices).size(); 
+            
+            float custo = tamanhoDiferenca == 0 ? 0: 1/tamanhoDiferenca;
+          
+            if(custo < menorCusto){
+                menorCusto = custo;
+                gatewayMenorCusto = gateway.getKey();
+            }
+        }
+        
+        return gatewayMenorCusto;
+    }
+    
+    
+    public List<Device> getDiferenca(List<Device> conjunto1, 
+            Set<Device> conjunto2){
+        
+        List<Device> conjuntoResultado = new ArrayList<>();
+        
+        for(Device d: conjunto1){
+            if(!conjunto2.contains(d)){
+                conjuntoResultado.add(d);
+            }
+        }
+        
+        return conjuntoResultado;
+    }
     public void grasp(){
         
         

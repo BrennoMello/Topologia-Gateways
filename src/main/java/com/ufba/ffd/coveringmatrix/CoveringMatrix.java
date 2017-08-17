@@ -115,7 +115,7 @@ public class CoveringMatrix {
         
         while(!solutionDevice.containsAll(listDevices)){
             
-            Gateway daVez = findMinSet( coveringMatrix , solutionDevice);
+            Gateway daVez = findMinSet(coveringMatrix , solutionDevice);
             solutionDevice.addAll(coveringMatrix.remove(daVez));
             solutionGateway.add(daVez);
             
@@ -125,7 +125,7 @@ public class CoveringMatrix {
     }
     
     public Gateway findMinSet(Map<Gateway, List<Device>> gateways, 
-            Set<Device> solutionDevices){
+        Set<Device> solutionDevices){
         
         Gateway gatewayMenorCusto = null;
         Float menorCusto = Float.MAX_VALUE;
@@ -133,7 +133,9 @@ public class CoveringMatrix {
         for(Map.Entry<Gateway, List<Device>> gateway : gateways.entrySet()){
             int tamanhoDiferenca = getDiferenca(gateway.getValue(), solutionDevices).size(); 
             
-            float custo = tamanhoDiferenca == 0 ? 0: 1/tamanhoDiferenca;
+            if (tamanhoDiferenca==0)
+                continue;
+            float custo = 1/tamanhoDiferenca;
           
             if(custo < menorCusto){
                 menorCusto = custo;
@@ -158,6 +160,7 @@ public class CoveringMatrix {
         
         return conjuntoResultado;
     }
+   
     public void grasp(){
         
         

@@ -36,7 +36,7 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) throws FileNotFoundException, IOException {
-        InputStream arquivo = Main.class.getResourceAsStream("/br/ufba/ffd/config/basic_topology.json");
+        InputStream arquivo = Main.class.getResourceAsStream("/br/ufba/ffd/config/complex_topology.json");
         
         System.out.println("Loading json file");
         GsonBuilder gb = new GsonBuilder();
@@ -55,10 +55,14 @@ public class Main {
         
         
         System.out.println("Print Solution");
+        long start = System.nanoTime();
+              
         List<Gateway> listSolution = coveringMatrix.greedyAlgorithm();
         
+        System.out.println("Final Time => " + (System.nanoTime() - start) + " ns");
+        
         for (Gateway gateway : listSolution) {
-            System.out.print(gateway);
+            System.out.println(gateway);
         }
     }
 }

@@ -19,6 +19,7 @@ import com.ufba.ffd.entities.Device;
 import com.ufba.ffd.entities.Gateway;
 import com.ufba.ffd.entities.Topology;
 import com.ufba.ffd.utilities.Coordinate;
+import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -95,6 +96,23 @@ public class CoveringMatrix {
     public void setDevicesUncovered(List<Device> devicesUncovered) {
         this.devicesUncovered = devicesUncovered;
     }
+    
+    public void naive(Map<Gateway, List<Device>> gateways){
+        
+        List<Gateway> minSolution = new ArrayList<>();
+        List<Device> currentSolution = new ArrayList<>();
+        
+        
+        
+        for(Map.Entry<Gateway, List<Device>> gateway : gateways.entrySet()){
+            currentSolution.addAll(gateway.getValue());
+            
+            for (Map.Entry<Gateway, List<Device>> element : gateways.entrySet()) {
+                
+            }
+        }
+    }
+    
     
     public List<Device> minCCChvatal(List<Device> E, Map<Gateway, List<Device>> coveringMatrix){
         

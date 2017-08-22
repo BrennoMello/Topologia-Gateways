@@ -21,6 +21,7 @@ import com.ufba.ffd.entities.Topology;
 import com.ufba.ffd.utilities.Coordinate;
 import com.ufba.ffd.utilities.CoordinateDeserializer;
 import com.ufba.ffd.coveringmatrix.CoveringMatrix;
+import com.ufba.ffd.entities.Device;
 import com.ufba.ffd.entities.Gateway;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -36,6 +37,7 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) throws FileNotFoundException, IOException {
+        
         InputStream arquivo = Main.class.getResourceAsStream("/br/ufba/ffd/config/complex_topology.json");
         
         System.out.println("Loading json file");
@@ -48,10 +50,13 @@ public class Main {
         Topology topology = gson.fromJson(buffArquivo, Topology.class);
         System.out.println(topology);
         
+        
+        
         System.out.println("Creating covering matrix");
         CoveringMatrix coveringMatrix = new CoveringMatrix(topology);
         System.out.println(coveringMatrix);
         coveringMatrix.printCoveringMatrixAsMatrix();
+        
         
         
         System.out.println("Print Solution");

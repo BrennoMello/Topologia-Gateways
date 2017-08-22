@@ -18,6 +18,7 @@ package com.ufba.ffd.coveringmatrix;
 import com.ufba.ffd.entities.Device;
 import com.ufba.ffd.entities.Gateway;
 import com.ufba.ffd.entities.Topology;
+import com.ufba.ffd.utilities.Best;
 import com.ufba.ffd.utilities.Coordinate;
 import java.util.AbstractList;
 import java.util.ArrayList;
@@ -39,6 +40,137 @@ public class CoveringMatrix {
     private Topology topology;
     List<Device> listDevices;
     List<Gateway> listGateways;
+    
+    public CoveringMatrix(){
+        dump();
+    }
+    
+    
+    
+    public CoveringMatrix(int qtdGateways, int qtdDevice){
+        
+        for (int i = 0; i < 10; i++) {
+            
+        }
+        
+        
+        for (int i = 0; i < qtdGateways; i++) {
+            Gateway gateway = new Gateway();
+            List<Device> devices = new ArrayList<>();
+            for (int j = 0; j < qtdDevice; j++) {
+                Device device = new Device();
+                devices.add(device);
+            }
+            coveringMatrix.put(gateway, devices);
+        }
+    }
+    
+    public void dump(){
+        coveringMatrix = new HashMap<>();
+        topology = new Topology();
+        
+        Device dev1 = new Device();
+        Device dev2 = new Device();
+        Device dev3 = new Device();
+        Device dev4 = new Device();
+        Device dev5 = new Device();
+        Device dev6 = new Device();
+        Device dev7 = new Device();
+        Device dev8 = new Device();
+        Device dev9 = new Device();
+        Device dev10 = new Device();
+        Device dev11 = new Device();
+        Device dev12 = new Device();
+        Device dev13 = new Device();
+        Device dev14 = new Device();
+        Device dev15 = new Device();
+        Device dev16 = new Device();
+        Device dev17 = new Device();
+        
+        
+        Gateway gat1 = new Gateway();
+        Gateway gat2 = new Gateway();
+        Gateway gat3 = new Gateway();
+        Gateway gat4 = new Gateway();
+        Gateway gat5 = new Gateway();
+        
+        
+        List<Device> devices1 = new ArrayList<>();
+        devices1.add(dev10);
+        devices1.add(dev7);
+        devices1.add(dev8);
+        devices1.add(dev9);
+        devices1.add(dev12);
+        devices1.add(dev17);
+        
+        List<Device> devices2 = new ArrayList<>();
+        devices2.add(dev1);
+        devices2.add(dev5);
+        devices2.add(dev6);
+        devices2.add(dev7);
+        devices2.add(dev8);
+        devices2.add(dev9);
+        devices2.add(dev10);
+        
+        List<Device> devices3 = new ArrayList<>();
+        devices3.add(dev11);
+        devices3.add(dev12);
+        devices3.add(dev13);
+        devices3.add(dev14);
+        devices3.add(dev15);
+        
+        List<Device> devices4 = new ArrayList<>();
+        devices4.add(dev7);
+        devices4.add(dev5);
+        devices4.add(dev17);
+        devices4.add(dev16);
+        devices4.add(dev1);
+        
+        List<Device> devices5 = new ArrayList<>();
+        devices5.add(dev4);
+        devices5.add(dev8);
+        devices5.add(dev3);
+        devices5.add(dev13);
+        devices5.add(dev2);
+        
+        List<Device> allDevices = new ArrayList<>();
+        List<Gateway> allGateways = new ArrayList<>();
+        allDevices.add(dev1);
+        allDevices.add(dev2);
+        allDevices.add(dev3);
+        allDevices.add(dev4);
+        allDevices.add(dev5);
+        allDevices.add(dev6);
+        allDevices.add(dev7);
+        allDevices.add(dev8);
+        allDevices.add(dev9);
+        allDevices.add(dev10);
+        allDevices.add(dev11);
+        allDevices.add(dev12);
+        allDevices.add(dev13);
+        allDevices.add(dev14);
+        allDevices.add(dev15);
+        allDevices.add(dev16);
+        allDevices.add(dev17);
+        
+        
+        allGateways.add(gat1);
+        allGateways.add(gat2);
+        allGateways.add(gat3);
+        allGateways.add(gat4);
+        allGateways.add(gat5);
+        
+        topology.setListDevices(allDevices);
+        topology.setListGateways(allGateways);
+        
+        coveringMatrix.put(gat1, devices1);
+        coveringMatrix.put(gat2, devices2);
+        coveringMatrix.put(gat3, devices3);
+        coveringMatrix.put(gat4, devices4);
+        coveringMatrix.put(gat5, devices5);
+        
+        
+    }
     
     public CoveringMatrix(Topology topology){
         this.topology = topology;
@@ -97,20 +229,33 @@ public class CoveringMatrix {
         this.devicesUncovered = devicesUncovered;
     }
     
-    public void naive(Map<Gateway, List<Device>> gateways){
+    public Best naive(Map<Gateway, List<Device>> gateways){
         
-        List<Gateway> minSolution = new ArrayList<>();
-        List<Device> currentSolution = new ArrayList<>();
-        
+        Best best = null;
+        if (gateways.size() == 1) {
+            best = new Best();
+            best.setSelectGateways(gateways.keySet());
+        }
+        //List<Gateway> minSolution = new ArrayList<>();
+        //List<Device> currentSolution = new ArrayList<>();
+        Map<Gateway, List<Device>> selectGateways = null;
         
         
         for(Map.Entry<Gateway, List<Device>> gateway : gateways.entrySet()){
-            currentSolution.addAll(gateway.getValue());
+            selectGateways.putAll(gateways);
+            selectGateways.remove(gateway);
             
-            for (Map.Entry<Gateway, List<Device>> element : gateways.entrySet()) {
-                
+            for (Map.Entry<Gateway, List<Device>> element : selectGateways.entrySet()) {
+                Best getBest = naive(selectGateways);
+                /*
+                if(getBest.getGateways()<best.getGateways() || best == null){
+                    best = getBest;
+                }
+                */    
             }
         }
+        
+        return best;
     }
     
     
@@ -226,12 +371,13 @@ public class CoveringMatrix {
             }
             ret = ret.concat("\t\t]\n\t},\n");
         }
-        
+        /*
         ret = ret.concat("\tUncovered => {\n");
         for(Device uncoveredDevice : devicesUncovered){
             ret = ret.concat("\t\t" + uncoveredDevice.getName() + ",\n");
         }
         ret = ret.concat("\t}\n");
+        */
         ret = ret.concat("]");
         
         return ret;

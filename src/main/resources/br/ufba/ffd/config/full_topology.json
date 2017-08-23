@@ -1,0 +1,406 @@
+{
+    "topologyName": "Complex1",
+    "listGateways": [
+        {
+            "name": "GatewayBiologia1",
+            "coordinates": {
+                "latitude": -13.0012700460185,
+                "longitude": -38.5084399580956
+            }
+        },
+        {
+            "name": "GatewayFarmacia_II",
+            "coordinates": {
+                "latitude": -13.000295227,
+                "longitude": -38.508264944
+            }
+        },
+        {
+            "name": "GatewayFarmacia_I",
+            "coordinates": {
+                "latitude": -13.000092684,
+                "longitude": -38.508003429
+            }
+        },
+        {
+            "name": "GatewayFacomII",
+            "coordinates": {
+                "latitude": -13.001063583,
+                "longitude": -38.509900421
+            }
+        },
+        {
+            "name": "Gateway STI",
+            "coordinates": {
+                "latitude": -13.0015784330209,
+                "longitude": -38.5076621174812
+            }
+        },
+        {
+            "name": "GatewayBiblioteca",
+            "coordinates": {
+                "latitude": -13.0018214835239,
+                "longitude": -38.5090756416321
+            }
+        },
+        {
+            "name": "GatewayRU",
+            "coordinates": {
+                "latitude": -13.0022762225352,
+                "longitude": -38.5083192586899
+            }
+        },
+        {
+            "name": "GatewayBiologia2",
+            "coordinates": {
+                "latitude": -13.0009773393567,
+                "longitude": -38.5088557004929
+            }
+        },
+        {
+            "name": "GatewayIME",
+            "coordinates": {
+                "latitude": -13.0011419868965,
+                "longitude": -38.5073322057724
+            }
+        },
+        {
+            "name": "GatewayPAFI",
+            "coordinates": {
+                "latitude": -13.0008937088184,
+                "longitude": -38.5078150033951
+            }
+        }, 
+        {
+            "name": "GatewayPaF_III",
+            "coordinates": {
+                "latitude": -13.0027753891112,
+                "longitude": -38.5094055533409
+            }
+        },
+        {
+            "name": "GatewayLetras",
+            "coordinates": {
+                "latitude": -13.0024408692131,
+                "longitude": -38.509786427021
+            }
+        },
+          {
+            "name": "GatewayEDUFBA",
+            "coordinates": {
+                "latitude": -13.0007029265476,
+                "longitude": -38.5095906257629
+            }
+        },
+        {
+            "name": "GatewayFacom",
+            "coordinates": {
+                "latitude": -13.0014817354427,
+                "longitude": -38.5101914405823
+            }
+        }
+    ],
+    "listDevices": [
+        {
+            "name": "DevTempSensor01",
+            "coordinates": {
+                "latitude": -13.0014137857707,
+                "longitude": -38.5075494647026
+            }
+        },
+         {
+            "name": "DevSensorFire46",
+            "coordinates": {
+                "latitude": -13.000484703,
+                "longitude": -38.508074507
+            }
+        },
+        {
+            "name": "DevTempSensor47",
+            "coordinates": {
+                "latitude": -13.000389312,
+                "longitude": -38.507999405
+            }
+        },
+        {
+            "name": "DevTempSensor45",
+            "coordinates": {
+                "latitude": -13.000504304,
+                "longitude": -38.508301154
+            }
+        },
+        {
+            "name": "DevHumiditySensor44",
+            "coordinates": {
+                "latitude": -13.000455955,
+                "longitude": -38.508362845
+            }
+        },
+        {
+            "name": "DevFireSensor43",
+            "coordinates": {
+                "latitude": -13.000406299,
+                "longitude": -38.508405760
+            }
+        },
+        {
+            "name": "DevTempSensor42",
+            "coordinates": {
+                "latitude": -13.000359257,
+                "longitude": -38.508456722
+            }
+        },
+        {
+            "name": "DevHumiditySensor41",
+            "coordinates": {
+                "latitude": -13.000259945,
+                "longitude": -38.508093283
+            }
+        },
+        {
+            "name": "DevTemSensor40",
+            "coordinates": {
+                "latitude": -13.000208983,
+                "longitude": -38.508161679
+            }
+        },
+        {
+            "name": "DevHumiditySensor39",
+            "coordinates": {
+                "latitude": -13.001800576,
+                "longitude": -38.510444909
+            }
+        },
+        {
+            "name": "DevFireSensor38",
+            "coordinates": {
+                "latitude": -13.001296181,
+                "longitude": -38.509940654
+            }
+        },
+        {
+            "name": "DevTempSensor37",
+            "coordinates": {
+                "latitude": -13.001236071,
+                "longitude": -38.510275930
+            }
+        },
+        {
+            "name": "DevHumiditySensor35",
+            "coordinates": {
+                "latitude": -13.001199483,
+                "longitude": -38.510106951
+            }
+        },
+         {
+            "name": "DevFireSensor34",
+            "coordinates": {
+                "latitude": -13.001204710,
+                "longitude": -38.509693891
+            }
+        },
+        {
+            "name": "DevTempSensor39",
+            "coordinates": {
+                "latitude": -13.001800576,
+                "longitude": -38.510444909
+            }
+        },
+        {
+            "name": "DevHumiditySensor02",
+            "coordinates": {
+                "latitude": -13.0021742983465,
+                "longitude": -38.5079357028008
+            }
+        },
+        {
+            "name": "DevTempSensor02",
+            "coordinates": {
+                "latitude": -13.0018659120847,
+                "longitude": -38.508697450161
+            }
+        },
+        {
+            "name": "DevFireSensor01",
+            "coordinates": {
+                "latitude": -13.0015784330209,
+                "longitude": -38.5083219408989
+            }
+        },
+        {
+            "name": "DevTempSensor04",
+            "coordinates": {
+                "latitude": -13.0011733483202,
+                "longitude": -38.5086384415627
+            }
+        },
+        {
+            "name": "DevRainSensor01",
+            "coordinates": {
+                "latitude": -13.0013014074261,
+                "longitude": -38.5078391432762
+            }
+        },
+        {
+            "name": "DevTempSensor7",
+            "coordinates": {
+                "latitude": -13.0014686681995,
+                "longitude": -38.5098722577095
+            }
+        },
+        {
+            "name": "DevTempSensor08",
+            "coordinates": {
+                "latitude": -13.0010479026014,
+                "longitude": -38.5095879435539
+            }
+        },
+        {
+            "name": "DevTempSensor09",
+            "coordinates": {
+                "latitude": -13.0011236927307,
+                "longitude": -38.5091507434845
+            }
+        },
+        {
+            "name": "DevSensorHumidity10",
+            "coordinates": {
+                "latitude": -13.0011132389212,
+                "longitude": -38.508158326149
+            }
+        },
+        {
+            "name": "DevHumidity11",
+            "coordinates": {
+                "latitude": -13.0008884819089,
+                "longitude": -38.5093277692795
+            }
+        },
+        {
+            "name": "DevFireSensor12",
+            "coordinates": {
+                "latitude": -13.0014660547508,
+                "longitude": -38.5104730725288
+            }
+        },
+        {
+            "name": "DevTempSensor13",
+            "coordinates": {
+                "latitude": -13.0018998868611,
+                "longitude": -38.5102450847626
+            }
+        },
+        {
+            "name": "DevHumiditySensor14",
+            "coordinates": {
+                "latitude": -13.0022317940478,
+                "longitude": -38.5094672441483
+            }
+        },
+        {
+            "name": "DevTempSensor16",
+            "coordinates": {
+                "latitude": -13.0024643901582,
+                "longitude": -38.5093438625336
+            }
+        },
+        {
+            "name": "DevTempSensor15",
+            "coordinates": {
+                "latitude": -13.0022814494156,
+                "longitude": -38.5100707411766
+            }
+        },
+        {
+            "name": "DevTempSensor17",
+            "coordinates": {
+                "latitude": -13.0022291806072,
+                "longitude": -38.5085955262184
+            }
+        },
+        {
+            "name": "DevTempSensor18",
+            "coordinates": {
+                "latitude": -13.001957382626,
+                "longitude": -38.5093492269516
+            }
+        },
+        {
+            "name": "DevTempSensor19",
+            "coordinates": {
+                "latitude": -13.0013249284791,
+                "longitude": -38.5087484121323
+            }
+        },
+        {
+            "name": "DevTempSenor20",
+            "coordinates": {
+                "latitude": -13.001500029582,
+                "longitude": -38.5073509812355
+            }
+        },
+        {
+            "name": "DevHumiditySensor21",
+            "coordinates": {
+                "latitude": -13.0006767919786,
+                "longitude": -38.5079357028008
+            }
+        },
+        {
+            "name": "DevFireSensor23",
+            "coordinates": {
+                "latitude": -13.0010008604405,
+                "longitude": -38.5071310400963
+            }
+        },
+        {
+            "name": "DevTempSensor25",
+            "coordinates": {
+                "latitude": -13.0010008604405,
+                "longitude": -38.5085311532021
+            }
+        },
+        {
+            "name": "DevHumiditySensor26",
+            "coordinates": {
+                "latitude": -13.0006611112358,
+                "longitude": -38.5098642110825
+            }
+        },
+        {
+            "name": "DevTempSensor28",
+            "coordinates": {
+                "latitude": -13.000802237885,
+                "longitude": -38.5090783238411
+            }
+        },
+        {
+            "name": "DevHumiditySensor29",
+            "coordinates": {
+                "latitude": -13.0009172299102,
+                "longitude": -38.5091722011566
+            }
+        },
+        {
+            "name": "DevTempSensor30",
+            "coordinates": {
+                "latitude": -13.0012674325677,
+                "longitude": -38.5076567530632
+            }
+        },
+        {
+            "name": "DevHumiditySensor31",
+            "coordinates": {
+                "latitude": -13.0009564317247,
+                "longitude": -38.5075011849403
+            }
+        },
+        {
+            "name": "DevTempSensor33",
+            "coordinates": {
+                "latitude": -13.0010844909426,
+                "longitude": -38.5075575113297
+            }
+        }
+    ]
+}

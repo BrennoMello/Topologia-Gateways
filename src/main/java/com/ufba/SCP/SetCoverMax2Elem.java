@@ -59,10 +59,9 @@ public class SetCoverMax2Elem{
     public static void main(String[] args)
     {
         Integer[][] arrayOfSets = { { 1, 2 }, { 3, 8 }, { 9, 10 }, { 1, 10 },
-                { 2, 3 }, { 4, 5 }, { 5, 7 }, { 5, 6 }, { 4, 7 }, { 6, 7 },
-                { 8, 9 }, };
+                { 6, 3 }, { 4, 5 }, { 5, 7 } };
         
-        Integer[] solution = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+        Integer[] solution = { 1, 2, 3, 4, 5, 6, 7};
         
         List<Set<Integer>> listOfSets = new ArrayList<Set<Integer>>();
         for (Integer[] array : arrayOfSets)

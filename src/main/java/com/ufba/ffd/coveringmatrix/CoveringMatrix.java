@@ -15,6 +15,7 @@
  */
 package com.ufba.ffd.coveringmatrix;
 
+import com.sun.javafx.scene.control.skin.VirtualFlow;
 import com.ufba.ffd.entities.Device;
 import com.ufba.ffd.entities.Gateway;
 import com.ufba.ffd.entities.Topology;
@@ -230,6 +231,10 @@ public class CoveringMatrix {
     }
     
     public Best naive(Map<Gateway, List<Device>> gateways){
+        List<Gateway> minSolutionGateway = new ArrayList<>();
+        List<Device> minSolutionDevice = new ArrayList<>();
+        
+              
         
         Best best = null;
         if (gateways.size() == 1) {

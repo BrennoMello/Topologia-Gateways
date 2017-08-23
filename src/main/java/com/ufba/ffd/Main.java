@@ -38,7 +38,7 @@ public class Main {
 
     public static void main(String[] args) throws FileNotFoundException, IOException {
         
-        InputStream arquivo = Main.class.getResourceAsStream("/br/ufba/ffd/config/complex_topology.json");
+        InputStream arquivo = Main.class.getResourceAsStream("/br/ufba/ffd/config/newjson_topology.json");
         
         System.out.println("Loading json file");
         GsonBuilder gb = new GsonBuilder();

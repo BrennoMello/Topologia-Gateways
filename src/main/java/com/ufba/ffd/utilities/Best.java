@@ -43,8 +43,6 @@ public class Best {
         this.qtdDevices = qtdDevices;
     }
 
-    
-
     public Set<Gateway> getSelectGateways() {
         return selectGateways;
     }
@@ -52,7 +50,9 @@ public class Best {
     public void setSelectGateways(Set<Gateway> selectGateways) {
         this.selectGateways = selectGateways;
         setQtdGateways(selectGateways.size());
-        
+    }
+    
+    public void containsGateways(){
         
     }
     

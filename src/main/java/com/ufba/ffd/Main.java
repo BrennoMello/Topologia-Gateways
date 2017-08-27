@@ -21,14 +21,13 @@ import com.ufba.ffd.entities.Topology;
 import com.ufba.ffd.utilities.Coordinate;
 import com.ufba.ffd.utilities.CoordinateDeserializer;
 import com.ufba.ffd.coveringmatrix.CoveringMatrix;
-import com.ufba.ffd.entities.Device;
 import com.ufba.ffd.entities.Gateway;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.List;
+import java.util.Set;
 
 /**
  *
@@ -50,23 +49,34 @@ public class Main {
         Topology topology = gson.fromJson(buffArquivo, Topology.class);
         System.out.println(topology);
         
-        
-        
         System.out.println("Creating covering matrix");
-        CoveringMatrix coveringMatrix = new CoveringMatrix(topology);
-        System.out.println(coveringMatrix);
-        coveringMatrix.printCoveringMatrixAsMatrix();
+        CoveringMatrix greedyCoveringMatrix = new CoveringMatrix(topology);
+        System.out.println(greedyCoveringMatrix);
+        greedyCoveringMatrix.printCoveringMatrixAsMatrix();
         
-        
-        
-        System.out.println("Print Solution");
+        System.out.println("Print Solution - GREEDY");
         long start = System.nanoTime();
               
-        List<Gateway> listSolution = coveringMatrix.greedyAlgorithm();
+        Set<Gateway> listSolution = greedyCoveringMatrix.greedyAlgorithm();
         
+        System.out.println("Final number of gateways => " + listSolution.size());
         System.out.println("Final Time => " + (System.nanoTime() - start) + " ns");
         
         for (Gateway gateway : listSolution) {
+            System.out.println(gateway);
+        }
+        
+        CoveringMatrix graspCoveringMatrix = new CoveringMatrix(topology);
+
+        System.out.println("Print Solution - GRASP");
+        start = System.nanoTime();
+
+        Set<Gateway> gatewaySolution = graspCoveringMatrix.grasp().getSelectedGateways();
+        
+        System.out.println("Final number of gateways => " + gatewaySolution.size());
+        System.out.println("Final Time => " + (System.nanoTime() - start) + " ns");
+        
+        for (Gateway gateway : gatewaySolution) {
             System.out.println(gateway);
         }
     }

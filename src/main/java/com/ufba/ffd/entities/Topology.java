@@ -15,8 +15,8 @@
  */
 package com.ufba.ffd.entities;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  *
@@ -25,17 +25,17 @@ import java.util.List;
 public class Topology {
     
     private String topologyName;
-    private List<Gateway> listGateways;
-    private List<Device> listDevices;
+    private Set<Gateway> listGateways;
+    private Set<Device> listDevices;
     
-    public Topology(String topologyName, List<Gateway> listGateways, List<Device> listDevices){
+    public Topology(String topologyName, Set<Gateway> listGateways, Set<Device> listDevices){
         this.topologyName = topologyName;
         this.listGateways = listGateways;
         this.listDevices = listDevices;
     }
     
     public Topology(){
-        this("", new ArrayList<>(), new ArrayList<>());
+        this("", new HashSet<>(), new HashSet<>());
     }
 
     public String getTopologyName() {
@@ -46,19 +46,19 @@ public class Topology {
         this.topologyName = topologyName;
     }
     
-    public List<Gateway> getListGateways() {
+    public Set<Gateway> getListGateways() {
         return listGateways;
     }
 
-    public void setListGateways(List<Gateway> listGateways) {
+    public void setListGateways(Set<Gateway> listGateways) {
         this.listGateways = listGateways;
     }
 
-    public List<Device> getListDevices() {
+    public Set<Device> getListDevices() {
         return listDevices;
     }
 
-    public void setListDevices(List<Device> listDevices) {
+    public void setListDevices(Set<Device> listDevices) {
         this.listDevices = listDevices;
     }
     

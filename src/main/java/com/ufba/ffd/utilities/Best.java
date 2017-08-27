@@ -15,7 +15,11 @@
  */
 package com.ufba.ffd.utilities;
 
+import com.ufba.ffd.entities.Device;
 import com.ufba.ffd.entities.Gateway;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -23,37 +27,71 @@ import java.util.Set;
  * @author brenno
  */
 public class Best {
-    private int qtdGateways;
-    private int qtdDevices;
-    private Set<Gateway> selectGateways;
-
-    public int getQtdGateways() {
-        return qtdGateways;
-    }
-
-    public void setQtdGateways(int qtdGateways) {
-        this.qtdGateways = qtdGateways;
-    }
-
-    public int getQtdDevices() {
-        return qtdDevices;
-    }
-
-    public void setQtdDevices(int qtdDevices) {
-        this.qtdDevices = qtdDevices;
-    }
-
-    public Set<Gateway> getSelectGateways() {
-        return selectGateways;
-    }
-
-    public void setSelectGateways(Set<Gateway> selectGateways) {
-        this.selectGateways = selectGateways;
-        setQtdGateways(selectGateways.size());
+    private Set<Gateway> selectedGateways;
+    private Set<Device> accessibleDevices;
+    private Map<Gateway, Set<Device>> mapDevices;
+    
+    public Best(){
+        selectedGateways = new HashSet<>();
+        accessibleDevices = new HashSet<>();
+        mapDevices = new HashMap<>();
     }
     
-    public void containsGateways(){
+    public Best(Set<Gateway> candidateGateways, Set<Device> candidateDevices, Map<Gateway, Set<Device>> candidateMapDevices){
+        this.selectedGateways = candidateGateways;
+        this.accessibleDevices = candidateDevices;
+        this.mapDevices = candidateMapDevices;
+    }
+    
+    public Best(Best oldBest){
+        selectedGateways.addAll(oldBest.getSelectedGateways());
+        accessibleDevices.addAll(oldBest.getAccessibleDevices());
+        mapDevices.putAll(oldBest.getMapDevices());
+    }
         
+    public int getQtdGateways(){
+        return selectedGateways.size();
+    }
+
+    public int getQtdDevices(){
+        return accessibleDevices.size();
     }
     
+    public Set<Gateway> getSelectedGateways(){
+        return selectedGateways;
+    }
+    
+    public Set<Device> getAccessibleDevices(){
+        return accessibleDevices;
+    }
+    
+    public Map<Gateway, Set<Device>> getMapDevices(){
+        return mapDevices;
+    }
+
+    public void addGateway(Gateway gateway, Set<Device> devicesAssociated){
+        selectedGateways.add(gateway);
+        accessibleDevices.addAll(devicesAssociated);
+        mapDevices.put(gateway, devicesAssociated);
+    }
+    
+    public boolean tryRemoveOne(){
+        for(Map.Entry<Gateway, Set<Device>> gateway : mapDevices.entrySet()){
+            Set<Device> newDeviceAccessible = new HashSet<>();
+            
+            for(Map.Entry<Gateway, Set<Device>> newGateway : mapDevices.entrySet()){
+                if(!newGateway.equals(gateway)){
+                    newDeviceAccessible.addAll(newGateway.getValue());
+                }
+            }
+            
+            if(newDeviceAccessible.size() == accessibleDevices.size()){
+                selectedGateways.remove(gateway.getKey());
+                mapDevices.remove(gateway.getKey());
+                return true;
+            }
+        }
+        
+        return false;
+    }
 }

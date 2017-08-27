@@ -20,6 +20,7 @@ import com.ufba.ffd.entities.Gateway;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 
 /**
@@ -75,23 +76,94 @@ public class Best {
         mapDevices.put(gateway, devicesAssociated);
     }
     
-    public boolean tryRemoveOne(){
+    public void tryRemoveOne(){
+        Set<Gateway> gatewaysToRemove = new HashSet<>();
         for(Map.Entry<Gateway, Set<Device>> gateway : mapDevices.entrySet()){
             Set<Device> newDeviceAccessible = new HashSet<>();
             
             for(Map.Entry<Gateway, Set<Device>> newGateway : mapDevices.entrySet()){
-                if(!newGateway.equals(gateway)){
+                if(!newGateway.equals(gateway) && !gatewaysToRemove.contains(gateway.getKey())){
+                    // COMENTA A LINHA ABAIXO PARA MOSTRAR COMO TUDO MELHORA!!
                     newDeviceAccessible.addAll(newGateway.getValue());
                 }
             }
             
             if(newDeviceAccessible.size() == accessibleDevices.size()){
                 selectedGateways.remove(gateway.getKey());
-                mapDevices.remove(gateway.getKey());
-                return true;
+                gatewaysToRemove.add(gateway.getKey());
+                System.out.println(" >> Removendo gateway " + gateway.toString());
             }
         }
         
-        return false;
+        for(Gateway gateway : gatewaysToRemove){
+            mapDevices.remove(gateway);
+        }
     }
+    
+    public void trySwap2per1(Map<Gateway, Set<Device>> outside_gateways){
+        Random random_iter = new Random();
+                
+        Set<Integer> gatewaysExcludedInside = new HashSet<>();
+        Set<Integer> gatewaysExcludedOutside = new HashSet<>();
+        boolean goodSelection;
+        
+        Gateway[] arraySelectedGateways = selectedGateways.toArray(new Gateway[selectedGateways.size()]);
+        Map.Entry<Gateway, Set<Device>>[] arrayOutsideGateways = outside_gateways.entrySet().toArray(new Map.Entry[outside_gateways.entrySet().size()]);
+        
+        int i = 0;
+        int MAX_ITER = 10;
+        
+        do{
+
+            Integer in1;
+            Integer in2;
+            Integer out1;
+            
+            if((gatewaysExcludedOutside.size() == outside_gateways.size()) || ((gatewaysExcludedInside.size() - arraySelectedGateways.length) < 2)){
+                return;
+            }
+            
+            while(gatewaysExcludedInside.contains(in1 = random_iter.nextInt(selectedGateways.size()))){}
+            while((in2 = random_iter.nextInt(selectedGateways.size())).equals(in1) || gatewaysExcludedInside.contains(in2)){}
+            while(gatewaysExcludedOutside.contains(out1 = random_iter.nextInt(outside_gateways.size()))){}            
+            
+            Gateway gatewayRemove1 = arraySelectedGateways[in1];
+            Gateway gatewayRemove2 = arraySelectedGateways[in2];
+            Gateway gatewayInsert = arrayOutsideGateways[out1].getKey();            
+            Set<Device> devicesInsert = arrayOutsideGateways[out1].getValue();
+            
+            gatewaysExcludedInside.add(in1);
+            gatewaysExcludedInside.add(in2);
+            gatewaysExcludedOutside.add(out1);
+            
+            Map<Gateway, Set<Device>> newGateways = new HashMap<>(mapDevices);
+            newGateways.remove(gatewayRemove1);
+            newGateways.remove(gatewayRemove2);
+            newGateways.put(gatewayInsert, devicesInsert);
+            Set<Device> newDevices = new HashSet<>();
+            
+            for(Map.Entry<Gateway, Set<Device>> newGateway : newGateways.entrySet()){
+                newDevices.addAll(newGateway.getValue());
+            }
+            
+            if(accessibleDevices.size() == newDevices.size()){
+                selectedGateways.remove(gatewayRemove1);
+                selectedGateways.remove(gatewayRemove2);
+                selectedGateways.add(gatewayInsert);
+                mapDevices.remove(gatewayRemove1);
+                mapDevices.remove(gatewayRemove2);
+                mapDevices.put(gatewayInsert, devicesInsert);
+                goodSelection = true;
+                
+                System.out.println(" >> Trocando gateway - " + gatewayRemove1.toString() + " , " 
+                    + gatewayRemove2.toString() + " - por - " 
+                    + gatewayInsert.toString());
+            }
+            else{
+                goodSelection = false;
+            }
+            i++;
+        }while(goodSelection || (i < MAX_ITER));
+    }
+    
 }

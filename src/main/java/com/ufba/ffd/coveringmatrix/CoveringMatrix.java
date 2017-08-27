@@ -242,7 +242,14 @@ public class CoveringMatrix {
     }
     
    public Best localSearch(Best best){
-       while(best.tryRemoveOne()){}
+        best.tryRemoveOne();
+        Map<Gateway, Set<Device>> outsideGateways = new HashMap<>(coveringMatrix);
+        for(Map.Entry<Gateway, Set<Device>> gateway : best.getMapDevices().entrySet()){
+           outsideGateways.remove(gateway.getKey());
+        }
+        if(!outsideGateways.isEmpty()){
+            best.trySwap2per1(outsideGateways);
+        }
        
        return best;
    }
@@ -253,7 +260,7 @@ public class CoveringMatrix {
         for(int i = 0; i < MAX_ITERACOES; i++){
             Best candidate = greedyRandomizedConstruction();
             candidate = localSearch(candidate);
-            if(best == null || best.getQtdGateways() < candidate.getQtdGateways()){
+            if(best == null || candidate.getQtdGateways() < best.getQtdGateways()){
                 best = candidate;
             }
             System.out.println(" > Iteration " + (i + 1) + ", best=" + best.getQtdGateways());

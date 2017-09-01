@@ -21,13 +21,14 @@ import com.ufba.ffd.entities.Gateway;
 import com.ufba.ffd.entities.Topology;
 import com.ufba.ffd.utilities.Best;
 import com.ufba.ffd.utilities.Coordinate;
-import java.util.AbstractList;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 
 /**
@@ -36,45 +37,26 @@ import java.util.Set;
  */
 public class CoveringMatrix {
     
-    private Map<Gateway, List<Device>> coveringMatrix;
-    private List<Device> devicesUncovered;
+    private Map<Gateway, Set<Device>> coveringMatrix;
+    private Set<Device> devicesUncovered;
     private Topology topology;
-    List<Device> listDevices;
-    List<Gateway> listGateways;
     
-    public CoveringMatrix(){
-        dump();
+    private Set<Device> listDevices;
+    private Set<Gateway> listGateways;
+           
+    public static int MAX_ITERACOES = 50;
+    public static int MAX_NO_IMPROV = 50;
+    public static double ALPHA_FACTOR = 50;
+    
+    public CoveringMatrix(int qtdGateways, int qtdDevice) throws Exception{
+        // Generate a random matrix
+        throw new Exception("This method is not complete!");
     }
-    
-    
-    
-    public CoveringMatrix(int qtdGateways, int qtdDevice){
-        
-        for (int i = 0; i < 10; i++) {
-            
-        }
-        
-        
-        for (int i = 0; i < qtdGateways; i++) {
-            Gateway gateway = new Gateway();
-            List<Device> devices = new ArrayList<>();
-            for (int j = 0; j < qtdDevice; j++) {
-                Device device = new Device();
-                devices.add(device);
-            }
-            coveringMatrix.put(gateway, devices);
-        }
-    }
-    
-    public void dump(){
-        
-        
-    }
-    
+
     public CoveringMatrix(Topology topology){
         this.topology = topology;
         coveringMatrix = new HashMap<>();
-        devicesUncovered = new ArrayList<>();
+        devicesUncovered = new HashSet<>();
         
         listDevices = topology.getListDevices();
         listGateways = topology.getListGateways();
@@ -85,7 +67,7 @@ public class CoveringMatrix {
         }
         
         for(Gateway gateway : listGateways){
-            List<Device> devicesNear = new ArrayList<>();
+            Set<Device> devicesNear = new HashSet<>();
             coveringMatrix.put(gateway, devicesNear);
             Coordinate gatewayCoordinate = gateway.getCoordinate();
             for(Device device : listDevices){
@@ -104,11 +86,11 @@ public class CoveringMatrix {
         }
     }
 
-    public Map<Gateway, List<Device>> getCoveringMatrix() {
+    public Map<Gateway, Set<Device>> getCoveringMatrix() {
         return coveringMatrix;
     }
 
-    public void setCoveringMatrix(Map<Gateway, List<Device>> coveringMatrix) {
+    public void setCoveringMatrix(Map<Gateway, Set<Device>> coveringMatrix) {
         this.coveringMatrix = coveringMatrix;
     }
 
@@ -120,83 +102,52 @@ public class CoveringMatrix {
         this.topology = topology;
     }
 
-    public List<Device> getDevicesUncovered() {
+    public Set<Device> getDevicesUncovered() {
         return devicesUncovered;
     }
 
-    public void setDevicesUncovered(List<Device> devicesUncovered) {
+    public void setDevicesUncovered(Set<Device> devicesUncovered) {
         this.devicesUncovered = devicesUncovered;
     }
     
+    // TODO
     public Best naive(Map<Gateway, List<Device>> gateways){
-        List<Gateway> minSolutionGateway = new ArrayList<>();
-        List<Device> minSolutionDevice = new ArrayList<>();
-        
-              
-        
         Best best = null;
-        if (gateways.size() == 1) {
-            best = new Best();
-            best.setSelectGateways(gateways.keySet());
-        }
-        //List<Gateway> minSolution = new ArrayList<>();
-        //List<Device> currentSolution = new ArrayList<>();
-        Map<Gateway, List<Device>> selectGateways = null;
         
+        Set<Gateway> gateways_list = new HashSet<>(gateways.keySet());
         
-        for(Map.Entry<Gateway, List<Device>> gateway : gateways.entrySet()){
-            selectGateways.putAll(gateways);
-            selectGateways.remove(gateway);
-            
-            for (Map.Entry<Gateway, List<Device>> element : selectGateways.entrySet()) {
-                Best getBest = naive(selectGateways);
-                /*
-                if(getBest.getGateways()<best.getGateways() || best == null){
-                    best = getBest;
+        for(int qtd_el = 1; qtd_el <= gateways.size(); qtd_el++){
+            for(int ind = 0; ind < (gateways.size() + 1 - qtd_el) ; ind++){
+                Set<Gateway> gateways_selected = new HashSet<>();
+                for(int n_assoc = 0; n_assoc < qtd_el; n_assoc++){
+                    gateways_selected.clear();
                 }
-                */    
             }
         }
         
-        return best;
+        return best;        
     }
     
-    
-    public List<Device> minCCChvatal(List<Device> E, Map<Gateway, List<Device>> coveringMatrix){
-        
-        
-        
-        
-        return null;
-        
-        
-        
-        
-    }
-    
-    public List<Gateway> greedyAlgorithm(){
+    public Set<Gateway> greedyAlgorithm(){
         Set<Device> solutionDevice = new LinkedHashSet<>();
-        List<Gateway> solutionGateway = new ArrayList<>();
-        
+        Set<Gateway> solutionGateway = new HashSet<>();
         
         while(!solutionDevice.containsAll(listDevices)){
-            
             Gateway daVez = findMinSet(coveringMatrix , solutionDevice);
             solutionDevice.addAll(coveringMatrix.remove(daVez));
             solutionGateway.add(daVez);
-            
-            
         }
+        
         return solutionGateway;
     }
     
-    public Gateway findMinSet(Map<Gateway, List<Device>> gateways, 
+    public Gateway findMinSet(Map<Gateway, Set<Device>> gateways, 
         Set<Device> solutionDevices){
         
         Gateway gatewayMenorCusto = null;
         Float menorCusto = Float.MAX_VALUE;
         
-        for(Map.Entry<Gateway, List<Device>> gateway : gateways.entrySet()){
+        for(Map.Entry<Gateway, Set<Device>> gateway : gateways.entrySet()){
             int tamanhoDiferenca = getDiferenca(gateway.getValue(), solutionDevices).size(); 
             
             if (tamanhoDiferenca==0)
@@ -213,41 +164,113 @@ public class CoveringMatrix {
     }
     
     
-    public List<Device> getDiferenca(List<Device> conjunto1, 
+    public List<Device> getDiferenca(Set<Device> conjunto1, 
             Set<Device> conjunto2){
         
         List<Device> conjuntoResultado = new ArrayList<>();
+        conjuntoResultado.addAll(conjunto1);
+        conjuntoResultado.removeAll(conjunto2);
         
+        /*
         for(Device d: conjunto1){
             if(!conjunto2.contains(d)){
                 conjuntoResultado.add(d);
             }
         }
+        */
         
         return conjuntoResultado;
     }
-   
-    public void grasp(){
-        
-        
-        
-        
-        for (Gateway gateway : topology.getListGateways()) {
-            List<Device> listDevice = coveringMatrix.get(gateway);
-            System.out.println(gateway);
-            for (Device device : listDevice) {
-                System.out.println(device);
-            }
-        }
- 
-        
+    
+    public Gateway getMax(Map<Gateway, Integer> featureCosts){
+           Gateway maxGateway = null;
+           for (Map.Entry<Gateway, Integer> gateway : featureCosts.entrySet()) {
+               if(maxGateway == null || gateway.getValue()>=featureCosts.get(maxGateway))
+                   maxGateway = gateway.getKey();
+           }
+           
+        return maxGateway;
     }
     
+    public Gateway getMin(Map<Gateway, Integer> featureCosts){
+        Gateway minGateway = null;
+           for (Map.Entry<Gateway, Integer> gateway : featureCosts.entrySet()) {
+               if(minGateway == null || gateway.getValue()>=featureCosts.get(minGateway))
+                   minGateway = gateway.getKey();
+           }
+           
+        return minGateway;
+    }
     
-    public void printCoveringMatrixAsMatrix(){
-        List<Device> listDevices = topology.getListDevices();
-        List<Gateway> listGateways = topology.getListGateways();
+    public Best greedyRandomizedConstruction(){
+        Random randomNumber = new Random();
         
+        Set<Device> candidateDevices = new HashSet<>();
+        Set<Gateway> candidatesGateway = new HashSet<>();        
+        Map<Gateway, Set<Device>> candidateMapDevices = new HashMap<>();
+        
+        //while(!candidateDevices.containsAll(listDevices)){
+        while(candidateDevices.size() < listDevices.size()){
+            Map<Gateway, Integer> featureCosts = new LinkedHashMap<>();  
+            List<Gateway> candidateRclGateway = new ArrayList<>();
+            
+            List<Gateway> restGateway = new ArrayList<>();
+            restGateway.addAll(listGateways);
+            restGateway.removeAll(candidateRclGateway);
+            
+            for (Gateway gat : restGateway) {
+                featureCosts.put(gat, getDiferenca(coveringMatrix.get(gat), candidateDevices).size());
+            }
+            
+            Gateway min = getMin(featureCosts);
+            Gateway max = getMax(featureCosts);
+            
+            for (Map.Entry<Gateway, Integer> gateway : featureCosts.entrySet()) {
+                if(gateway.getValue() <= featureCosts.get(min) + ALPHA_FACTOR * (featureCosts.get(min) - featureCosts.get(max)))
+                    candidateRclGateway.add(gateway.getKey());
+            }
+            
+            Gateway randomCandidate = candidateRclGateway.get(randomNumber.nextInt(candidateRclGateway.size()));
+            Set<Device> randomCandidateDevices = coveringMatrix.get(randomCandidate);
+            candidatesGateway.add(randomCandidate);
+            candidateDevices.addAll(randomCandidateDevices);
+            candidateMapDevices.put(randomCandidate, randomCandidateDevices);
+        }
+        
+        Best candidate = new Best(candidatesGateway, candidateDevices, candidateMapDevices);
+                
+        return candidate;
+    }
+    
+   public Best localSearch(Best best){
+        best.tryRemoveOne();
+        Map<Gateway, Set<Device>> outsideGateways = new HashMap<>(coveringMatrix);
+        for(Map.Entry<Gateway, Set<Device>> gateway : best.getMapDevices().entrySet()){
+           outsideGateways.remove(gateway.getKey());
+        }
+        if(!outsideGateways.isEmpty()){
+            best.trySwap2per1(outsideGateways);
+        }
+       
+       return best;
+   }
+    
+    public Best grasp(){
+        Best best = null;
+        
+        for(int i = 0; i < MAX_ITERACOES; i++){
+            Best candidate = greedyRandomizedConstruction();
+            candidate = localSearch(candidate);
+            if(best == null || candidate.getQtdGateways() < best.getQtdGateways()){
+                best = candidate;
+            }
+            System.out.println(" > Iteration " + (i + 1) + ", best=" + best.getQtdGateways());
+        }
+ 
+        return best;
+    }
+    
+    public void printCoveringMatrixAsMatrix(){        
         System.out.format("%19s", "");
         for(Gateway gat : listGateways){
             System.out.format("%19s", gat.getName());

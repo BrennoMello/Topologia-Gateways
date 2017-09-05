@@ -83,7 +83,7 @@ public class Best {
             
             for(Map.Entry<Gateway, Set<Device>> newGateway : mapDevices.entrySet()){
                 if(!newGateway.equals(gateway) && !gatewaysToRemove.contains(gateway.getKey())){
-                    // COMENTA A LINHA ABAIXO PARA MOSTRAR COMO TUDO MELHORA!!
+                    // COMENTA A LINHA ABAIXO PARA PERCEBER COMO TUDO MELHORA!!
                     newDeviceAccessible.addAll(newGateway.getValue());
                 }
             }

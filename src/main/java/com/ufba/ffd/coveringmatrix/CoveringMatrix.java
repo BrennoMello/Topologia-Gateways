@@ -15,7 +15,6 @@
  */
 package com.ufba.ffd.coveringmatrix;
 
-import com.sun.javafx.scene.control.skin.VirtualFlow;
 import com.ufba.ffd.entities.Device;
 import com.ufba.ffd.entities.Gateway;
 import com.ufba.ffd.entities.Topology;
@@ -46,7 +45,7 @@ public class CoveringMatrix {
            
     public static int MAX_ITERACOES = 50;
     public static int MAX_NO_IMPROV = 50;
-    public static double ALPHA_FACTOR = 50;
+    public static double ALPHA_FACTOR = 0.3;
     
     public CoveringMatrix(int qtdGateways, int qtdDevice) throws Exception{
         // Generate a random matrix
@@ -209,7 +208,7 @@ public class CoveringMatrix {
         Set<Gateway> candidatesGateway = new HashSet<>();        
         Map<Gateway, Set<Device>> candidateMapDevices = new HashMap<>();
         
-        //while(!candidateDevices.containsAll(listDevices)){
+        
         while(candidateDevices.size() < listDevices.size()){
             Map<Gateway, Integer> featureCosts = new LinkedHashMap<>();  
             List<Gateway> candidateRclGateway = new ArrayList<>();
